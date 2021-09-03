@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,18 +13,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: Colors.amber,
+        primaryColor: Colors.orangeAccent,
         accentColor: Colors.green,
         textTheme: TextTheme(
           bodyText2: TextStyle(color: Colors.purple),
         ),
       ),
-      initialRoute: '/third',
+      initialRoute: '/5',
       routes: <String, WidgetBuilder>{
-        '/first' : (context) => FirstPage(),
-        '/second' : (context) => SecondPage(),
-        '/third' : (context) => ThirdPage(),
-        '/fourth' : (context) => FourthPage(),
+        '/1' : (context) => FirstPage(),
+        '/2' : (context) => SecondPage(),
+        '/3' : (context) => ThirdPage(),
+        '/4' : (context) => FourthPage(),
+        '/5' : (context) => FifthPage(),
+        '/6' : (context) => SixthPage(),
       },
     );
   }
@@ -270,6 +274,127 @@ class FourthPage extends StatelessWidget {
          },
          separatorBuilder: (context, int) => Divider(),
        ),
+    );
+  }
+}
+
+
+class FifthPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Grid View'),
+       ),
+       body: GridView.count(
+         crossAxisCount: 2,
+         children: List.generate(6,(index){
+           return InkWell(
+              onTap: (){
+                Navigator.pushNamed(context, '/${index+1}');
+              },
+              child: Container(
+                margin: EdgeInsets.all(15.0),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Center(
+                  child: Text(
+                   'Page ${index+1}',
+                   style: Theme.of(context).textTheme.headline5,
+                  ),
+                ),
+              ),
+            );
+         }),
+      ),
+    );
+  }
+}
+
+class SixthPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Form Page'),
+      ),
+      body: MycustomForm(),
+    );
+  }
+}
+
+class MycustomForm  extends StatefulWidget {
+  @override
+  _MycustomFormState createState() => _MycustomFormState();
+}
+
+class _MycustomFormState extends State<MycustomForm> {
+
+  final _formkey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formkey,
+      child: Column(
+        children: [
+          TextFormField(
+            decoration: InputDecoration(
+              icon: Icon(Icons.person),
+              hintText: 'Your First Name',
+              labelText: 'First Name', 
+            ),
+            validator: (value){
+              if (value == null || value.isEmpty){
+                return 'Please enter Your First tName';
+              }
+            },
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              icon: Icon(Icons.family_restroom),
+              hintText: 'Your Last Name',
+              labelText: 'Last Name', 
+            ),
+            validator: (value){
+              if (value == null || value.isEmpty){
+                return 'Please enter Your Last Name';
+              }
+            },
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              icon: Icon(Icons.speed),
+              hintText: 'Your Age',
+              labelText: 'Age', 
+            ),
+            validator: (value){
+              if (value == null || value.isEmpty){
+                return 'Please enter Your Age';
+              }
+
+              try {
+                if (int.parse(value) < 15){
+                return 'Please enter valid age';
+                }
+              } catch (e) {
+              return 'Please enter number only';
+              }
+            },
+          ),
+          ElevatedButton(
+            onPressed: (){
+              if (_formkey.currentState!.validate()){
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Processing'),
+                ));
+              }
+            },
+            child: Text('Submit'),
+          ),
+        ],
+      ),
     );
   }
 }
