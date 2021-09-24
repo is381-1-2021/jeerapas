@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sadcat/model/formModel.dart';
 
 class SixthPage extends StatelessWidget {
   @override
@@ -42,6 +44,7 @@ class _MycustomFormState extends State<MycustomForm> {
             onSaved: (value) {
               _firstName = value!;
             },
+            initialValue: context.read<FormModel>().firstName,
           ),
           TextFormField(
             decoration: InputDecoration(
@@ -57,6 +60,7 @@ class _MycustomFormState extends State<MycustomForm> {
             onSaved: (value) {
               _lastName = value!;
             },
+            initialValue: context.read<FormModel>().lastName,
           ),
           TextFormField(
             decoration: InputDecoration(
@@ -80,14 +84,17 @@ class _MycustomFormState extends State<MycustomForm> {
             onSaved: (value) {
               _age = int.parse(value!);
             },
+            initialValue: context.read<FormModel>().age.toString(),
           ),
           ElevatedButton(
             onPressed: () {
               if (_formkey.currentState!.validate()) {
                 _formkey.currentState!.save();
 
-                var response = '$_firstName $_lastName $_age';
-                Navigator.pop(context, response);
+                context.read<FormModel>().firstName = _firstName;
+                context.read<FormModel>().lastName = _lastName;
+                context.read<FormModel>().age = _age;
+                Navigator.pop(context);
               }
             },
             child: Text('Submit'),
