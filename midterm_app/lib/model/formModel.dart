@@ -6,6 +6,14 @@ class FormModel extends ChangeNotifier {
   String? _lastName;
   String? _password;
 
+  List<String> questions = <String>[];
+  List<String> answers = <String>[];
+
+  List<String> cardNameList = <String>[];
+  List<String> subjectList = <String>[];
+
+// sign up Aand Log in --------------------------------
+
   get email => this._email;
 
   set email(value) {
@@ -31,6 +39,38 @@ class FormModel extends ChangeNotifier {
 
   set password(value) {
     this._password = value;
+    notifyListeners();
+  }
+
+// Question and Answer in Flash Card ------------------
+
+  get Questions => this.questions;
+
+  set Questions(value) {
+    this.questions = value;
+    notifyListeners();
+  }
+
+  get Answers => this.answers;
+
+  set Answers(value) {
+    this.answers = value;
+    notifyListeners();
+  }
+
+// Flash Card ----------------------------------------
+
+  get cardName => this.cardNameList;
+
+  set cardName(value) {
+    this.cardNameList = value;
+    notifyListeners();
+  }
+
+  get subject => this.subjectList;
+
+  set subject(value) {
+    this.subjectList = value;
     notifyListeners();
   }
 }

@@ -43,6 +43,8 @@ class _LoginPageState extends State<LoginPage> {
   String? _emailLogin = '';
   String? _passwordLogin = '';
 
+  bool? _passwordVisible;
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
         _keyboardVisible = visible;
       });
     });
+    _passwordVisible = false;
   }
 
   @override
@@ -265,11 +268,27 @@ Please sign up or enter a valid email''';
                           ),
                           SizedBox(height: 15),
                           TextFormField(
+                            obscureText: !_passwordVisible!,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 5),
                               hintText: "Enter your Password...",
                               icon: Icon(Icons.vpn_key),
                               labelText: "Your Password",
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  // Based on passwordVisible state choose the icon
+                                  _passwordVisible!
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
+                                onPressed: () {
+                                  // Update the state i.e. toogle the state of passwordVisible variable
+                                  setState(() {
+                                    _passwordVisible = !_passwordVisible!;
+                                  });
+                                },
+                              ),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -448,11 +467,27 @@ Please sign up or enter a valid email''';
                           ),
                           SizedBox(height: 5),
                           TextFormField(
+                            obscureText: !_passwordVisible!,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(vertical: 5),
                               hintText: "Enter your Password...",
                               icon: Icon(Icons.vpn_key),
                               labelText: "Your Password",
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  // Based on passwordVisible state choose the icon
+                                  _passwordVisible!
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
+                                onPressed: () {
+                                  // Update the state i.e. toogle the state of passwordVisible variable
+                                  setState(() {
+                                    _passwordVisible = !_passwordVisible!;
+                                  });
+                                },
+                              ),
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -501,6 +536,9 @@ Please sign up or enter a valid email''';
                                       content: Text(
                                           'Sign up success! $_firstName $_lastName, back to login'),
                                     ));
+                                    setState(() {
+                                      _pageState = 1;
+                                    });
                                   }
                                 },
                               ),

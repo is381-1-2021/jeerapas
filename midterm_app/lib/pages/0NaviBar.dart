@@ -22,7 +22,7 @@ class _NavibarState extends State<Navibar> {
             headerSideBar(
               profileImage: profileImage,
               onClicked: () {
-                Navigator.pushReplacementNamed(context, '/Home');
+                Navigator.pushReplacementNamed(context, '/Profile');
               },
             ),
             Container(
@@ -32,7 +32,7 @@ class _NavibarState extends State<Navibar> {
                   Divider(color: Colors.white),
                   SizedBox(height: 24),
                   menuSideBar(
-                    text: "Home--page ที่ทำส่ง",
+                    text: "Home",
                     icon: Icons.home,
                     onClicked: () {
                       Navigator.pushReplacementNamed(context, '/Home');
@@ -74,7 +74,7 @@ class _NavibarState extends State<Navibar> {
                   ),
                   SizedBox(height: 16),
                   menuSideBar(
-                    text: "Log Out--page ที่ทำส่ง",
+                    text: "Log Out",
                     icon: Icons.exit_to_app,
                     onClicked: () {
                       Navigator.pushReplacementNamed(context, '/Login');
